@@ -50,6 +50,8 @@ namespace MiddlewareHW
 
             app.UseAuthorization();
 
+            app.UseSomeMiddleWare();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

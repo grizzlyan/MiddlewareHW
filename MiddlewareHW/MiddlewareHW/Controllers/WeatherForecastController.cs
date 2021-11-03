@@ -11,29 +11,27 @@ namespace MiddlewareHW.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
+        List<string> Summaries = new List<string>{
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        List<string> Cars = new List<string>{
+            "BMW", "Chevrolet", "Geely"
+        };
+  
+        [HttpGet]
+        [Route("summaries")]
+        [ExtraHeader(key: "KKK", value: "VVV")]
+        public IEnumerable<string> Get()
         {
-            _logger = logger;
+            return Summaries;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        [Route("cars")]
+        public IEnumerable<string> GetCars()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return Cars;
         }
     }
 }
